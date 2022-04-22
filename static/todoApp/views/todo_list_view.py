@@ -65,7 +65,12 @@ class TodoListView(Resource):
         TODO : Implement PATCH method
         :return:
         """
-        return {"message": "PATCH method not implemented"}, 501
+        try:
+            Todo.update_complete(todo_id)
+            return {"message": "successfully marked"}, 200
+        except Exception as e:
+            logger.error(f"Error: {e}")
+            return {"message": "PATCH method not implemented"}, 501
 
     def delete(self, todo_id):
         try:
